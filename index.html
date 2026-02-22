@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focality: Environmental Digital Boundaries</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --ocean-dark: #0f172a;
+            --ocean-mid: #0284c7;
+            --ocean-light: #38bdf8;
+            --accent-yellow: #f59e0b; /* Amber 500 for charts */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .chart-container-large {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 350px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .chart-container-large { height: 400px; }
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: var(--ocean-mid);
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            border: 2px solid white;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--ocean-dark), var(--ocean-mid));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hide-scroll-bar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hide-scroll-bar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-sky-200">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-sky-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="text-3xl">📡</span>
+                    <span class="font-bold text-2xl tracking-tighter text-slate-900">FOCALITY</span>
+                </div>
+                <div class="hidden lg:flex space-x-8 text-sm font-medium text-slate-600">
+                    <a href="#problem" class="hover:text-sky-600 transition">The Problem</a>
+                    <a href="#demo" class="hover:text-sky-600 transition">Product Demo</a>
+                    <a href="#psychology" class="hover:text-sky-600 transition">Psychology</a>
+                    <a href="#tech" class="hover:text-sky-600 transition">Technology</a>
+                    <a href="#strategy" class="hover:text-sky-600 transition">Blue Ocean Strategy</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-20 pb-32 overflow-hidden bg-slate-50">
+        <div class="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(#0284c7_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-sky-100 text-sky-700 text-xs font-bold uppercase tracking-widest mb-6 border border-sky-200">A New Category in Tech</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight text-slate-900">
+                Stop Building Apps.<br>
+                <span class="gradient-text">Build Environment.</span>
+            </h1>
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-10">
+                Focality is not another screen-time tool. It is <strong>Environmental Digital Architecture</strong>.
+                We replace fragile willpower with unbreakable, context-aware boundaries to protect sleep hygiene and deep work.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#demo" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-sky-600 hover:bg-sky-700 md:py-4 md:text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+                    Try The Prototype ⚡
+                </a>
+                <a href="#problem" class="inline-flex items-center justify-center px-8 py-3 border border-slate-200 text-base font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 md:py-4 md:text-lg shadow-sm transition-all">
+                    Explore The Research 📊
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: The Problem & Research -->
+    <section id="problem" class="py-20 bg-slate-100 border-y border-slate-200 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+            <div class="text-center">
+                <span class="text-sky-600 font-bold tracking-widest uppercase text-sm">The Science of Failure</span>
+                <h2 class="text-4xl font-bold text-slate-900 mt-2 mb-4">Why "Willpower" Fails</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    Digital boundaries today depend on self-discipline in environments designed to weaken it. Here is the data proving why traditional "Red Ocean" screentime apps are destined to fail.
+                </p>
+            </div>
+        </div>
+
+        <div class="relative w-full max-w-7xl mx-auto group">
+            <button id="scrollLeftBtn" class="absolute left-0 md:left-4 top-[45%] -translate-y-1/2 z-20 bg-white shadow-xl border border-slate-200 rounded-full w-12 h-12 text-xl font-bold text-sky-600 hover:bg-sky-50 hover:scale-110 transition-all flex items-center justify-center cursor-pointer">
+                &#10094;
+            </button>
+
+            <div id="researchScroll" class="flex overflow-x-auto snap-x snap-mandatory hide-scroll-bar scroll-smooth w-full">
+                
+                <!-- Slide 1 -->
+                <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
+                    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-slate-900">1. Ego Depletion Theory</h3>
+                        </div>
+                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
+                            Willpower is a finite cognitive resource. As users make decisions throughout the day (Decision Fatigue), their capacity for self-regulation drops drastically by nighttime, directly correlating with a spike in doomscrolling.
+                        </p>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
+                            <canvas id="egoChart"></canvas>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-400 text-center">
+                            Citation: Baumeister, R. F., et al. (1998). Ego depletion: Is the active self a limited resource?
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
+                    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-slate-900">2. Neurological Vulnerability</h3>
+                        </div>
+                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
+                            Adolescents demonstrate underdeveloped impulse control due to ongoing <strong>prefrontal cortex development</strong>. This makes them highly susceptible to screen-time algorithms engineered for maximum dopamine release.
+                        </p>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
+                            <canvas id="neuroChart"></canvas>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-400 text-center">
+                            Source: National Institutes of Health (NIH) - Adolescent Brain Cognitive Development Study.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
+                    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-slate-900">3. The Biological Toll</h3>
+                        </div>
+                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
+                            Excessive nighttime screen use suppresses melatonin production due to blue light exposure. This directly degrades sleep quality, which strongly correlates with increased anxiety and reduced academic performance.
+                        </p>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
+                            <canvas id="bioChart"></canvas>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-400 text-center">
+                            Source: Sleep Research Society - Impact of Light-Emitting Devices on Sleep.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
+                    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-slate-900">4. The Fogg Behavior Model</h3>
+                        </div>
+                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
+                            Behavior occurs when Motivation, Ability, and a Prompt converge (B=MAP). "Red Ocean" apps leave the "Ability" to scroll high via easy overrides. Focality alters the environment to completely remove "Ability" in focus zones.
+                        </p>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
+                            <canvas id="foggChart"></canvas>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-400 text-center">
+                            Citation: Fogg, B. J. (2009). A behavior model for persuasive design.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="scrollRightBtn" class="absolute right-0 md:right-4 top-[45%] -translate-y-1/2 z-20 bg-white shadow-xl border border-slate-200 rounded-full w-12 h-12 text-xl font-bold text-sky-600 hover:bg-sky-50 hover:scale-110 transition-all flex items-center justify-center cursor-pointer">
+                &#10095;
+            </button>
+        </div>
+
+        <div class="max-w-md mx-auto mt-2 px-4 mb-6">
+            <div class="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
+                <div id="scrollProgressBar" class="h-full bg-sky-500 transition-all duration-300 ease-out" style="width: 25%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: The Solution Reveal (Interactive Demo) -->
+    <section id="demo" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-sky-900/20 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-sky-400 font-bold tracking-widest uppercase text-sm">The Solution Revealed</span>
+                <h2 class="text-4xl font-bold mt-2 mb-4">Interactive Focality Prototype</h2>
+                <p class="text-slate-400 max-w-3xl mx-auto">
+                    Stop fighting human nature. Move the slider to experience how Focality automatically enforces boundaries just by entering a room.
+                </p>
+            </div>
+
+            <div class="bg-slate-800 rounded-3xl border border-slate-700 shadow-[0_0_50px_rgba(2,132,199,0.15)] overflow-hidden max-w-5xl mx-auto">
+                <div class="grid md:grid-cols-2">
+                    <div class="p-8 md:p-12 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold mb-2">Test RSSI Trigger 🕹️</h3>
+                        <p class="text-slate-400 text-sm mb-8">
+                            As the phone physically approaches the hardware beacon (on a nightstand), signal strength increases, triggering the localized environmental block.
+                        </p>
+
+                        <div class="space-y-8">
+                            <div>
+                                <div class="flex justify-between text-xs uppercase tracking-wider font-bold text-sky-400 mb-2">
+                                    <span>Living Room</span>
+                                    <span>Approaching</span>
+                                    <span>At Nightstand</span>
+                                </div>
+                                <input type="range" min="0" max="100" value="0" id="proximitySlider" class="accent-sky-500">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                                    <div class="text-xs text-slate-500 uppercase">Signal (RSSI)</div>
+                                    <div id="rssiValue" class="text-2xl font-mono text-sky-400 font-bold">-95 dBm</div>
+                                </div>
+                                <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                                    <div class="text-xs text-slate-500 uppercase">App Status</div>
+                                    <div id="statusValue" class="text-xl font-bold text-emerald-400">UNRESTRICTED</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 relative h-80 md:h-auto flex items-center justify-center overflow-hidden" id="simContainer">
+                        <div class="absolute right-12 w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(2,132,199,0.5)] z-20">
+                            <span class="text-2xl">📡</span>
+                        </div>
+                        <div id="wave1" class="absolute right-12 w-12 h-12 rounded-full border border-sky-500/30 transition-all duration-300"></div>
+                        <div id="wave2" class="absolute right-12 w-12 h-12 rounded-full border border-sky-500/20 transition-all duration-300"></div>
+                        <div id="phoneObject" class="absolute left-12 w-16 h-28 bg-white rounded-xl shadow-lg flex flex-col items-center justify-center transition-all duration-300 z-30 border-4 border-slate-300">
+                            <div class="w-12 h-20 bg-slate-100 rounded overflow-hidden relative">
+                                <div id="screenContent" class="p-1 grid grid-cols-2 gap-1 content-start transition-opacity duration-300">
+                                    <div class="w-full aspect-square bg-rose-400 rounded-sm"></div>
+                                    <div class="w-full aspect-square bg-blue-400 rounded-sm"></div>
+                                    <div class="w-full aspect-square bg-emerald-400 rounded-sm"></div>
+                                    <div class="w-full aspect-square bg-amber-400 rounded-sm"></div>
+                                </div>
+                                <div id="lockOverlay" class="absolute inset-0 bg-slate-900/90 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-1 text-center">
+                                    <span class="text-2xl mb-0.5">🔒</span>
+                                    <span class="text-[7px] text-white font-bold leading-tight uppercase">Focality<br>Activated</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: The Psychology -->
+    <section id="psychology" class="py-24 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-emerald-600 font-bold tracking-widest uppercase text-sm">The Science of Success</span>
+                <h2 class="text-4xl font-bold text-slate-900 mt-2 mb-4">Why Environmental Design Succeeds</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    Instead of asking users to "try harder," Focality guarantees focus automatically. By shifting the locus of control to the physical room, we leverage proven behavioral economics to reconstruct digital habits.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">🤝</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">The "Ulysses Pact"</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        In behavioral economics, a Ulysses Pact is a pre-commitment strategy. Users set up the Focality chip at 2 PM when motivation is high. This mathematically protects them at 11 PM when impulse control is gone. They decide to focus <strong>once</strong>, not every night.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">🧱</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Eliminating "Ability"</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Revisiting Dr. Fogg's model (B=MAP), Focality completely severs the <strong>Ability</strong>. Because the restriction is tied to the physical hardware rather than a software button, bypassing it requires leaving the room—a massive physical friction that stops the habit.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-6 shadow-inner">⚓</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Spatial Anchoring</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        <i>"Environment is the invisible hand that shapes human behavior."</i> - James Clear. Focality utilizes spatial anchoring to build a subconscious neurological link. The brain learns: "When I lay in this bed, my phone is disabled." It automates the habit loop.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-slate-900 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-sky-500 rounded-full blur-[100px] opacity-20"></div>
+                <h3 class="text-white font-bold text-xl mb-6 relative z-10 text-center">Long-Term Habit Maintenance Comparison</h3>
+                <div class="chart-container-large !h-[300px] !bg-transparent border-0 shadow-none !p-0 relative z-10">
+                    <canvas id="successChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: The Technology -->
+    <section id="tech" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sky-600 font-bold tracking-widest uppercase text-sm">How The Magic Works</span>
+                <h2 class="text-4xl font-bold text-slate-900 mt-2 mb-4">Hardware & Architecture</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    Focality does not use GPS. It relies on localized BLE hardware chips and <strong>RSSI (Received Signal Strength Indicator)</strong> to measure distance down to the meter, creating high-precision geofences indoors.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-4 mb-10">
+                <div id="card-battery" onclick="showTechDetail('battery')" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center cursor-pointer hover:border-sky-300 hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-center">
+                    <div class="text-3xl mb-2 relative z-10 group-hover:-translate-y-1 transition-transform">🔋</div>
+                    <div class="text-2xl font-bold text-slate-800 relative z-10">1-2 Years</div>
+                    <div class="text-sm text-slate-500 font-medium relative z-10">Battery Life</div>
+                    <div class="text-[10px] text-sky-600 font-bold uppercase tracking-wider mt-4 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 relative z-10">Click for Science ↓</div>
+                </div>
+                <div id="card-precision" onclick="showTechDetail('precision')" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center cursor-pointer hover:border-sky-300 hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-center">
+                    <div class="text-3xl mb-2 relative z-10 group-hover:-translate-y-1 transition-transform">📏</div>
+                    <div class="text-2xl font-bold text-slate-800 relative z-10">&lt; 1 Meter</div>
+                    <div class="text-sm text-slate-500 font-medium relative z-10">Proximity Precision</div>
+                    <div class="text-[10px] text-sky-600 font-bold uppercase tracking-wider mt-4 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 relative z-10">Click for Science ↓</div>
+                </div>
+                <div id="card-frequency" onclick="showTechDetail('frequency')" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center cursor-pointer hover:border-sky-300 hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-center">
+                    <div class="text-3xl mb-2 relative z-10 group-hover:-translate-y-1 transition-transform">📶</div>
+                    <div class="text-2xl font-bold text-slate-800 relative z-10">2.4 GHz</div>
+                    <div class="text-sm text-slate-500 font-medium relative z-10">Radio Frequency</div>
+                    <div class="text-[10px] text-sky-600 font-bold uppercase tracking-wider mt-4 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 relative z-10">Click for Science ↓</div>
+                </div>
+                <div id="card-privacy" onclick="showTechDetail('privacy')" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 text-center cursor-pointer hover:border-sky-300 hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-center">
+                    <div class="text-3xl mb-2 relative z-10 group-hover:-translate-y-1 transition-transform">🔒</div>
+                    <div class="text-2xl font-bold text-slate-800 relative z-10">100% Local</div>
+                    <div class="text-sm text-slate-500 font-medium relative z-10">Edge Processing</div>
+                    <div class="text-[10px] text-sky-600 font-bold uppercase tracking-wider mt-4 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 relative z-10">Click for Science ↓</div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <div id="techContentPanel" class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm transition-opacity duration-300 min-h-[350px] flex flex-col justify-center">
+                    <div class="mb-4">
+                        <span id="techSubtitle" class="text-sky-600 font-bold uppercase tracking-wider text-xs">The Architectural Backbone</span>
+                        <h3 id="techTitle" class="text-2xl font-bold text-slate-900 mt-1">Why BLE for Indoor Zoning?</h3>
+                    </div>
+                    <div id="techBody" class="text-slate-600 space-y-4 text-sm leading-relaxed">
+                        <p>To enforce a "Sleep Hygiene" zone (like a bed), the system must know exactly where the user is inside a house. Standard GPS fails indoors and drains phone batteries. Wi-Fi lacks precise room-level accuracy.</p>
+                        <ul class="space-y-4 mt-4">
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2 mt-0.5 font-bold">✓</span>
+                                <div>
+                                    <strong class="block text-slate-900">RSSI Distance Calculation</strong>
+                                    <span class="text-sm text-slate-500">By measuring the signal degradation (dbM) from the Focality chip to the phone, the algorithm calculates radial distance without needing coordinates.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-emerald-500 mr-2 mt-0.5 font-bold">✓</span>
+                                <div>
+                                    <strong class="block text-slate-900">Absolute Privacy</strong>
+                                    <span class="text-sm text-slate-500">Because it only measures proximity to a dumb beacon, no location data is ever sent to a server. It is a closed loop.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chart-container-large border border-slate-200 h-full">
+                    <canvas id="techComparisonChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Strategy -->
+    <section id="strategy" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sky-600 font-bold tracking-widest uppercase text-sm">Market Dominance</span>
+                <h2 class="text-4xl font-bold text-slate-900 mt-2">Blue Ocean Strategy</h2>
+                <p class="text-slate-500 mt-4 max-w-2xl mx-auto">
+                    By combining behavioral psychology with BLE hardware, Focality reconstructs market boundaries to create uncontested space.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-20">
+                <!-- STRATEGY CANVAS -->
+                <div>
+                    <div class="flex justify-between items-end mb-6">
+                        <h3 class="text-xl font-bold text-slate-800">The Strategy Canvas 📈</h3>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500 border border-slate-200">Divergence Model</span>
+                    </div>
+                    <div class="chart-container-large border border-slate-200 bg-slate-50">
+                        <canvas id="strategyCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- ERRC GRID -->
+                <div>
+                    <div class="flex justify-between items-end mb-6">
+                        <h3 class="text-xl font-bold text-slate-800">The ERRC Grid 🏗️</h3>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500 border border-slate-200">Action Framework</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 h-[400px]">
+                        <div onclick="openInfoModal('eliminate')" class="bg-rose-50 p-6 rounded-xl border border-rose-200 flex flex-col shadow-sm cursor-pointer hover:scale-[1.03] hover:shadow-md transition-all group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <h4 class="text-rose-700 font-bold uppercase text-xs tracking-wider mb-3 relative z-10">Eliminate 🗑️</h4>
+                            <ul class="text-sm text-slate-700 space-y-2 flex-grow relative z-10">
+                                <li>• Reliance on Willpower</li>
+                                <li>• Manual App Activation</li>
+                                <li>• Easy "Unblock" Buttons</li>
+                            </ul>
+                            <div class="text-[10px] text-rose-500 font-bold uppercase tracking-wider mt-4 flex items-center relative z-10">View Science <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span></div>
+                        </div>
+                        <div onclick="openInfoModal('raise')" class="bg-emerald-50 p-6 rounded-xl border border-emerald-200 flex flex-col shadow-sm cursor-pointer hover:scale-[1.03] hover:shadow-md transition-all group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <h4 class="text-emerald-700 font-bold uppercase text-xs tracking-wider mb-3 relative z-10">Raise 📈</h4>
+                            <ul class="text-sm text-slate-700 space-y-2 flex-grow relative z-10">
+                                <li>• Habit Consistency</li>
+                                <li>• Quality Sleep Hygiene</li>
+                                <li>• Physical-to-Digital Links</li>
+                            </ul>
+                            <div class="text-[10px] text-emerald-600 font-bold uppercase tracking-wider mt-4 flex items-center relative z-10">View Science <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span></div>
+                        </div>
+                        <div onclick="openInfoModal('reduce')" class="bg-amber-50 p-6 rounded-xl border border-amber-200 flex flex-col shadow-sm cursor-pointer hover:scale-[1.03] hover:shadow-md transition-all group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <h4 class="text-amber-700 font-bold uppercase text-xs tracking-wider mb-3 relative z-10">Reduce 📉</h4>
+                            <ul class="text-sm text-slate-700 space-y-2 flex-grow relative z-10">
+                                <li>• Decision Fatigue</li>
+                                <li>• Setup Friction</li>
+                                <li>• Screen-time Anxiety</li>
+                            </ul>
+                            <div class="text-[10px] text-amber-600 font-bold uppercase tracking-wider mt-4 flex items-center relative z-10">View Science <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span></div>
+                        </div>
+                        <div onclick="openInfoModal('create')" class="bg-sky-50 p-6 rounded-xl border border-sky-300 flex flex-col shadow-inner shadow-sky-100 cursor-pointer hover:scale-[1.03] hover:shadow-md transition-all group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <h4 class="text-sky-700 font-bold uppercase text-xs tracking-wider mb-3 relative z-10">Create ✨</h4>
+                            <ul class="text-sm text-slate-800 space-y-2 flex-grow relative z-10">
+                                <li>• <strong>Environmental Boundaries</strong></li>
+                                <li>• Passive Enforcement</li>
+                                <li>• Physical "Focus Zones"</li>
+                            </ul>
+                            <div class="text-[10px] text-sky-600 font-bold uppercase tracking-wider mt-4 flex items-center relative z-10">View Rationale <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NON-CONSUMERS -->
+            <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                <h3 class="text-2xl font-bold text-slate-800 mb-8 text-center">Unlocking Non-Consumers</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-sky-500 hover:-translate-y-1 transition-transform">
+                        <div class="text-sky-600 font-bold mb-2">Tier 1: "Soon-to-be"</div>
+                        <p class="text-sm text-slate-600">Users actively seeking less screentime but whose willpower-based systems continuously fail them.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-sky-400 hover:-translate-y-1 transition-transform">
+                        <div class="text-sky-600 font-bold mb-2">Tier 2: "Refusing"</div>
+                        <p class="text-sm text-slate-600">People refusing rigid apps and physical lockboxes because they procrastinate starting them or fear emergencies.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-slate-300 hover:-translate-y-1 transition-transform">
+                        <div class="text-slate-600 font-bold mb-2">Tier 3: "Unexplored"</div>
+                        <p class="text-sm text-slate-600">Institutions (Companies, Schools) needing passive physical boundaries for common areas without tracking privacy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Information Modal -->
+    <div id="infoModal" class="fixed inset-0 z-[100] hidden items-center justify-center">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeInfoModal()"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-lg relative z-10 transform scale-95 opacity-0 transition-all duration-300" id="infoModalContent">
+            <div id="modalHeader" class="p-6 rounded-t-2xl border-b border-slate-100 flex justify-between items-center">
+                <h3 id="modalTitle" class="text-xl font-bold uppercase tracking-wider">Title</h3>
+                <button onclick="closeInfoModal()" class="text-slate-400 hover:text-slate-700 text-2xl leading-none font-bold p-1">&times;</button>
+            </div>
+            <div class="p-8">
+                <h4 id="modalSubtitle" class="font-bold text-slate-900 mb-2 text-lg">The Science & Rationale</h4>
+                <div id="modalText" class="text-slate-600 text-sm space-y-4 leading-relaxed"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 py-12 text-center text-slate-500 border-t-4 border-sky-500">
+        <div class="text-2xl mb-4 text-sky-400">📡</div>
+        <p class="font-bold text-white mb-2">Focality</p>
+        <p class="text-sm">Generated for Blue Ocean Strategy Presentation.</p>
+    </footer>
+
+    <!-- Script Logic -->
+    <script>
+        // --- GLOBAL CHART STYLING ---
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#64748b'; 
+        Chart.defaults.scale.grid.color = '#f8fafc';
+        Chart.defaults.elements.line.borderWidth = 3;
+        Chart.defaults.elements.point.radius = 4;
+        Chart.defaults.elements.point.hoverRadius = 6;
+        Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(15, 23, 42, 0.9)'; 
+        Chart.defaults.plugins.tooltip.padding = 12;
+        Chart.defaults.plugins.tooltip.cornerRadius = 8;
+
+        function wrapLabel(str) {
+            if (str.length <= 16) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= 16) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    return Array.isArray(label) ? label.join(' ') : label;
+                }
+            }
+        };
+
+        // --- CHART 1: EGO DEPLETION ---
+        new Chart(document.getElementById('egoChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['8 AM', '12 PM', '4 PM', '8 PM', '11 PM'],
+                datasets: [
+                    { label: 'Willpower Level (%)', data: [100, 85, 60, 30, 10], borderColor: '#0ea5e9', backgroundColor: 'rgba(14, 165, 233, 0.1)', fill: true, tension: 0.4, yAxisID: 'y' },
+                    { label: 'Doomscrolling Likelihood', data: [10, 20, 35, 60, 95], borderColor: '#f59e0b', borderDash: [5, 5], tension: 0.4, yAxisID: 'y1' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: {size: 10} } }, tooltip: commonTooltipConfig }, scales: { x: { ticks: { font: {size: 10} }, grid: { display: false } }, y: { type: 'linear', position: 'left', min: 0, max: 100, ticks: { display: false } }, y1: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, min: 0, max: 100, ticks: { display: false } } } }
+        });
+
+        // --- CHART 2: NEUROLOGICAL ---
+        new Chart(document.getElementById('neuroChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Children (5-12)', 'Adolescents (13-19)', 'Adults (25+)'].map(wrapLabel),
+                datasets: [
+                    { label: 'Prefrontal Cortex Dev. (Impulse Control)', data: [30, 65, 100], backgroundColor: '#0ea5e9', borderRadius: 4 },
+                    { label: 'Susceptibility to App Algorithms', data: [90, 95, 40], backgroundColor: '#f59e0b', borderRadius: 4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: {size: 10} } }, tooltip: commonTooltipConfig }, scales: { x: { ticks: { font: {size: 10} }, grid: { display: false } }, y: { beginAtZero: true, max: 100, ticks: { display: false } } } }
+        });
+
+        // --- CHART 3: BIOLOGICAL TOLL ---
+        new Chart(document.getElementById('bioChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['0 Hrs', '1 Hr', '2 Hrs', '3+ Hrs'].map(wrapLabel),
+                datasets: [
+                    { type: 'bar', label: 'Melatonin Suppression (%)', data: [5, 25, 55, 85], backgroundColor: 'rgba(245, 158, 11, 0.8)', borderRadius: 4, yAxisID: 'y' },
+                    { type: 'line', label: 'Sleep Quality Score', data: [95, 80, 50, 30], borderColor: '#0ea5e9', backgroundColor: '#0ea5e9', borderWidth: 3, yAxisID: 'y1' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: {size: 10} } }, tooltip: commonTooltipConfig }, scales: { x: { ticks: { font: {size: 10} }, grid: { display: false } }, y: { type: 'linear', position: 'left', min: 0, max: 100, ticks: { display: false } }, y1: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, min: 0, max: 100, ticks: { display: false } } } }
+        });
+
+        // --- CHART 4: FOGG MODEL ---
+        new Chart(document.getElementById('foggChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['Motivation to Scroll', 'Ability to Scroll', 'Prompt to Scroll'].map(wrapLabel),
+                datasets: [
+                    { label: 'Traditional App (Red Ocean)', data: [9, 8, 9], backgroundColor: 'rgba(245, 158, 11, 0.2)', borderColor: '#f59e0b', pointBackgroundColor: '#f59e0b' },
+                    { label: 'Focality (Blue Ocean)', data: [9, 0, 1], backgroundColor: 'rgba(14, 165, 233, 0.4)', borderColor: '#0ea5e9', pointBackgroundColor: '#0ea5e9' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: {size: 10} } }, tooltip: commonTooltipConfig }, scales: { r: { angleLines: { display: true }, suggestedMin: 0, suggestedMax: 10, ticks: { display: false } } } }
+        });
+
+        // --- CHART 5: SUCCESS RATE ---
+        Chart.defaults.color = '#cbd5e1'; 
+        new Chart(document.getElementById('successChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Day 1', 'Day 7', 'Day 30', 'Day 90'],
+                datasets: [
+                    { label: 'Willpower Apps (Fading)', data: [85, 40, 15, 5], backgroundColor: '#94a3b8', borderRadius: 4 },
+                    { label: 'Environmental Design (Focality)', data: [100, 98, 96, 95], backgroundColor: '#38bdf8', borderRadius: 4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', labels: { color: '#f8fafc' } }, tooltip: { backgroundColor: 'rgba(255,255,255,0.9)', titleColor: '#0f172a', bodyColor: '#0f172a' } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } }, x: { grid: { display: false }, ticks: { color: '#94a3b8' } } } }
+        });
+        Chart.defaults.color = '#64748b'; 
+
+        // --- TECH COMPARISON CHART ---
+        new Chart(document.getElementById('techComparisonChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Indoor Room Accuracy', 'Battery Efficiency', 'Local Privacy (No Cloud)'].map(wrapLabel),
+                datasets: [
+                    { label: 'Bluetooth LE (Focality)', data: [95, 90, 100], backgroundColor: '#0284c7', borderRadius: 4 },
+                    { label: 'Standard GPS', data: [10, 20, 30], backgroundColor: '#94a3b8', borderRadius: 4 },
+                    { label: 'Wi-Fi Triangulation', data: [50, 40, 60], backgroundColor: '#cbd5e1', borderRadius: 4 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, tooltip: commonTooltipConfig }, scales: { y: { beginAtZero: true, max: 100, grid: { display: false }, ticks: { display: false } }, x: { grid: { display: false } } } }
+        });
+
+        // --- STRATEGY CANVAS ---
+        new Chart(document.getElementById('strategyCanvas').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Price', 'Ease of Setup', 'Willpower Cost', 'Flexibility', 'Env. Trigger', 'Habit Strength'].map(wrapLabel),
+                datasets: [
+                    { label: 'Focality (Blue Ocean)', data: [5, 7, 1, 8, 9, 9], borderColor: '#0284c7', backgroundColor: '#0284c7', borderWidth: 4, tension: 0.1 },
+                    { label: 'ScreenTime Apps', data: [2, 8, 9, 2, 1, 3], borderColor: '#f59e0b', borderWidth: 2, borderDash: [5,5], tension: 0.3 },
+                    { label: 'Physical Lockbox', data: [7, 4, 6, 0, 8, 7], borderColor: '#94a3b8', borderWidth: 2, borderDash: [2,2], tension: 0.3 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, tooltip: { mode: 'index', intersect: false, callbacks: commonTooltipConfig.callbacks } }, scales: { y: { beginAtZero: true, max: 10, ticks: { display: false }, grid: { display: false } }, x: { grid: { display: false } } } }
+        });
+
+        // --- HORIZONTAL SCROLL BUTTON LOGIC (WITH LOOPING & FULL WIDTH) ---
+        const researchScroll = document.getElementById('researchScroll');
+        const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+        const scrollRightBtn = document.getElementById('scrollRightBtn');
+        const scrollProgressBar = document.getElementById('scrollProgressBar');
+
+        if (scrollLeftBtn && scrollRightBtn && researchScroll) {
+            const updateProgressBar = () => {
+                const totalSlides = 4;
+                const currentIndex = Math.round(researchScroll.scrollLeft / researchScroll.clientWidth);
+                const progressPercentage = ((currentIndex + 1) / totalSlides) * 100;
+                if (scrollProgressBar) { scrollProgressBar.style.width = `${progressPercentage}%`; }
+            };
+
+            researchScroll.addEventListener('scroll', updateProgressBar);
+            window.addEventListener('resize', updateProgressBar);
+
+            scrollLeftBtn.addEventListener('click', () => {
+                const scrollAmount = researchScroll.clientWidth; 
+                if (researchScroll.scrollLeft <= 10) {
+                    researchScroll.scrollTo({ left: researchScroll.scrollWidth, behavior: 'smooth' });
+                } else {
+                    researchScroll.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                }
+            });
+            
+            scrollRightBtn.addEventListener('click', () => {
+                const scrollAmount = researchScroll.clientWidth; 
+                if (Math.ceil(researchScroll.scrollLeft + researchScroll.clientWidth) >= researchScroll.scrollWidth - 10) {
+                    researchScroll.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    researchScroll.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            });
+        }
+
+        // --- DYNAMIC TECH SECTION LOGIC ---
+        const techDetails = {
+            'overview': {
+                title: 'Why BLE for Indoor Zoning?', subtitle: 'The Architectural Backbone',
+                text: `<p>To enforce a "Sleep Hygiene" zone (like a bed), the system must know exactly where the user is inside a house. Standard GPS fails indoors and drains phone batteries. Wi-Fi lacks precise room-level accuracy.</p>
+                       <ul class="space-y-4 mt-4">
+                           <li class="flex items-start"><span class="text-emerald-500 mr-2 mt-0.5 font-bold">✓</span><div><strong class="block text-slate-900">RSSI Distance Calculation</strong><span class="text-sm text-slate-500">By measuring the signal degradation (dbM) from the Focality chip to the phone, the algorithm calculates radial distance without needing coordinates.</span></div></li>
+                           <li class="flex items-start"><span class="text-emerald-500 mr-2 mt-0.5 font-bold">✓</span><div><strong class="block text-slate-900">Absolute Privacy</strong><span class="text-sm text-slate-500">Because it only measures proximity to a dumb beacon, no location data is ever sent to a server. It is a closed loop.</span></div></li>
+                       </ul>`
+            },
+            'battery': {
+                title: '1-2 Years Battery Life 🔋', subtitle: 'Bluetooth Low Energy (BLE) Efficiency',
+                text: `<p class="mb-3"><strong>Technical Backing:</strong> Unlike classic Bluetooth or Wi-Fi, BLE protocols transmit very small packets of data (advertising intervals) while remaining in "sleep mode" 99% of the time. This drastically reduces power consumption to mere microamps.</p>
+                       <p><strong>Strategic Rationale:</strong> Focality is designed as a passive environmental boundary. If a user has to remember to charge their focus chip every night, friction increases and the habit fails. A coin-cell battery ensures it is a "set it and forget it" architectural fixture.</p>`
+            },
+            'precision': {
+                title: '< 1 Meter Precision 📏', subtitle: 'RSSI Attenuation Mathematics',
+                text: `<p class="mb-3"><strong>Scientific Backing:</strong> By measuring the <i>Received Signal Strength Indicator (RSSI)</i>, the app algorithm translates radio wave attenuation—signal degradation measured in dBm—into precise radial distance using logarithmic path loss models.</p>
+                       <p><strong>Why GPS Fails:</strong> Standard GPS has a 5-10 meter margin of error indoors. Focality's sub-meter precision ensures a bed is a locked "sleep zone", while a desk just 3 meters away remains fully unlocked.</p>`
+            },
+            'frequency': {
+                title: '2.4 GHz Frequency 📶', subtitle: 'Optimized Indoor Propagation',
+                text: `<p class="mb-3"><strong>Technical Backing:</strong> 2.4 GHz is the globally accepted ISM radio band. Its specific wavelength (~12.5 cm) is mathematically ideal for our precise use case.</p>
+                       <p><strong>Strategic Rationale:</strong> Higher frequencies (5 GHz Wi-Fi) bounce unpredictably off walls. Lower frequencies penetrate too far. 2.4 GHz hits the "Goldilocks zone": it penetrates standard indoor drywall just enough for a room-scale zone, but attenuates predictably for accurate RSSI calculations.</p>`
+            },
+            'privacy': {
+                title: '100% Edge Processing 🔒', subtitle: 'Zero Cloud Reliance',
+                text: `<p class="mb-3"><strong>Technical Backing:</strong> The Focality beacon is a "dumb" emitter broadcasting a secure UUID. The smartphone receives this ID and does 100% of the distance calculation <i>locally on the device edge</i>.</p>
+                       <p><strong>Strategic Rationale:</strong> Privacy is the biggest hurdle for location apps. Because Focality only measures proximity to a local beacon, <strong>no location data is ever transmitted to a server</strong>. It is impossible to track a user's macro-location, unlocking the strict B2B Institutional market (schools/offices).</p>`
+            }
+        };
+
+        const techCardIds = ['battery', 'precision', 'frequency', 'privacy'];
+        window.showTechDetail = function(key) {
+            techCardIds.forEach(id => {
+                const el = document.getElementById('card-' + id);
+                if(el) {
+                    el.classList.remove('bg-sky-50', 'border-sky-300', 'ring-2', 'ring-sky-200', 'scale-[1.02]', 'shadow-md');
+                    el.classList.add('bg-white', 'border-slate-200', 'shadow-sm');
+                }
+            });
+            const activeCard = document.getElementById('card-' + key);
+            if(activeCard) {
+                activeCard.classList.remove('bg-white', 'border-slate-200', 'shadow-sm');
+                activeCard.classList.add('bg-sky-50', 'border-sky-300', 'ring-2', 'ring-sky-200', 'scale-[1.02]', 'shadow-md');
+            }
+            const panel = document.getElementById('techContentPanel');
+            const data = techDetails[key];
+            panel.style.opacity = '0'; 
+            setTimeout(() => {
+                document.getElementById('techTitle').innerHTML = data.title;
+                document.getElementById('techSubtitle').innerHTML = data.subtitle;
+                document.getElementById('techBody').innerHTML = data.text;
+                panel.classList.remove('bg-white');
+                panel.classList.add('bg-sky-50/50');
+                panel.style.opacity = '1'; 
+            }, 200);
+        };
+
+        // --- ERRC MODAL LOGIC & DATA ---
+        const errcData = {
+            'eliminate': {
+                title: 'Eliminate 🗑️', bgColor: 'bg-rose-50', textColor: 'text-rose-700', subtitle: 'Eradicating the Willpower Dependency',
+                text: `<p><strong>Scientific Backing:</strong> Baumeister’s <i>Ego Depletion Theory</i> proves willpower is a limited cognitive battery. Red Ocean apps rely on the user having enough battery at 11 PM to click "Start Focus Mode."</p>
+                       <p>By <strong>eliminating</strong> manual activation, Focality stops treating willpower as a solution. If the user does not have to make a choice, they cannot suffer from decision fatigue.</p>`
+            },
+            'raise': {
+                title: 'Raise 📈', bgColor: 'bg-emerald-50', textColor: 'text-emerald-700', subtitle: 'Elevating Habit Formation & Sleep Hygiene',
+                text: `<p><strong>Scientific Backing:</strong> The <i>Sleep Research Society</i> notes blue light and scrolling severely suppress melatonin. Focality raises sleep hygiene by making the bedroom a guaranteed offline zone.</p>
+                       <p>Citing James Clear's <i>Atomic Habits</i>, "Environment is the invisible hand." By linking a physical space directly to a digital state, we artificially raise the consistency of habit formation.</p>`
+            },
+            'reduce': {
+                title: 'Reduce 📉', bgColor: 'bg-amber-50', textColor: 'text-amber-700', subtitle: 'Minimizing Friction and Anxiety',
+                text: `<p><strong>Scientific Backing:</strong> According to the <i>Fogg Behavior Model (B=MAP)</i>, behavior only occurs when a user has the <strong>Ability</strong>. Red Ocean apps have high friction for setup, but low friction for overriding.</p>
+                       <p>Focality <strong>reduces</strong> setup friction to zero (passive entry) and reduces the "Ability" to be distracted. This vastly reduces "Screen-time Anxiety" because the decision is taken out of their hands.</p>`
+            },
+            'create': {
+                title: 'Create ✨', bgColor: 'bg-sky-50', textColor: 'text-sky-700', subtitle: 'Pioneering Environmental Digital Boundaries',
+                text: `<p><strong>Strategic Rationale:</strong> This is the core of the Blue Ocean Shift. We are creating a brand new category of technology: <strong>Environmental Digital Architecture</strong>.</p>
+                       <p>By utilizing localized BLE chips rather than GPS, we create passive enforcement zones that open up <strong>Tier 3 Non-Consumers</strong> (Schools, Corporate Offices). They can buy cheap hardware to enforce "Focus Zones" passively, without tracking location privacy.</p>`
+            }
+        };
+
+        const infoModal = document.getElementById('infoModal');
+        const infoModalContent = document.getElementById('infoModalContent');
+        
+        window.openInfoModal = function(key) {
+            const data = errcData[key];
+            document.getElementById('modalTitle').innerHTML = data.title;
+            document.getElementById('modalTitle').className = `text-xl font-bold uppercase tracking-wider ${data.textColor}`;
+            document.getElementById('modalHeader').className = `p-6 rounded-t-2xl border-b border-slate-100 flex justify-between items-center ${data.bgColor}`;
+            document.getElementById('modalSubtitle').innerHTML = data.subtitle;
+            document.getElementById('modalText').innerHTML = data.text;
+
+            infoModal.classList.remove('hidden');
+            infoModal.classList.add('flex');
+            setTimeout(() => {
+                infoModalContent.classList.remove('scale-95', 'opacity-0');
+                infoModalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        };
+
+        window.closeInfoModal = function() {
+            infoModalContent.classList.remove('scale-100', 'opacity-100');
+            infoModalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                infoModal.classList.add('hidden');
+                infoModal.classList.remove('flex');
+            }, 300);
+        };
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && !infoModal.classList.contains('hidden')) { closeInfoModal(); }
+        });
+
+        // --- INTERACTIVE SIMULATOR LOGIC ---
+        const slider = document.getElementById('proximitySlider');
+        const phone = document.getElementById('phoneObject');
+        const wave1 = document.getElementById('wave1');
+        const wave2 = document.getElementById('wave2');
+        const screenContent = document.getElementById('screenContent');
+        const lockOverlay = document.getElementById('lockOverlay');
+        const rssiValue = document.getElementById('rssiValue');
+        const statusValue = document.getElementById('statusValue');
+
+        slider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            const movePercentage = (val / 100) * 75; 
+            phone.style.left = `calc(12px + ${movePercentage}%)`;
+            const dbm = -100 + (val * 0.6);
+            rssiValue.innerText = Math.floor(dbm) + ' dBm';
+
+            if (val > 80) {
+                statusValue.innerText = "⛔ BLOCKED"; statusValue.className = "text-xl font-bold text-rose-500";
+                screenContent.style.opacity = '0.1'; lockOverlay.style.opacity = '1'; phone.style.borderColor = '#e11d48';
+                wave1.style.transform = 'scale(4)'; wave1.style.opacity = '0.5'; wave2.style.transform = 'scale(3)';
+            } else if (val > 40) {
+                statusValue.innerText = "⚠️ DETECTING"; statusValue.className = "text-xl font-bold text-amber-500";
+                screenContent.style.opacity = '1'; lockOverlay.style.opacity = '0'; phone.style.borderColor = '#f59e0b';
+                wave1.style.transform = 'scale(2.5)'; wave1.style.opacity = '0.2'; wave2.style.transform = 'scale(1.5)';
+            } else {
+                statusValue.innerText = "✅ UNRESTRICTED"; statusValue.className = "text-xl font-bold text-emerald-400";
+                screenContent.style.opacity = '1'; lockOverlay.style.opacity = '0'; phone.style.borderColor = '#cbd5e1';
+                wave1.style.transform = 'scale(1)'; wave1.style.opacity = '0.1'; wave2.style.transform = 'scale(1)';
+            }
+        });
+    </script>
+</body>
+</html>
