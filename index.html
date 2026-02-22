@@ -121,7 +121,7 @@
                 <div class="hidden lg:flex space-x-6 text-sm font-medium text-slate-600">
                     <a href="#problem" class="hover:text-sky-600 transition">The Problem</a>
                     <a href="#demo" class="hover:text-sky-600 transition">Product Demo</a>
-                    <a href="#tech" class="hover:text-sky-600 transition">The Hardware</a>
+                    <a href="#internals" class="hover:text-sky-600 transition">The Hardware</a>
                     <a href="#psychology" class="hover:text-sky-600 transition">The Science</a>
                     <a href="#business" class="hover:text-sky-600 transition">Business Model</a>
                     <a href="#strategy" class="hover:text-sky-600 transition">Strategy</a>
@@ -154,103 +154,52 @@
         </div>
     </header>
 
-   <!-- Section 1: The Problem & Research -->
+    <!-- Section 1: The Problem & Research -->
     <section id="problem" class="py-20 bg-slate-100 border-y border-slate-200 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-            <div class="text-center">
-                <span class="text-sky-600 font-bold tracking-widest uppercase text-sm">The Science of Failure</span>
-                <h2 class="text-4xl font-bold text-slate-900 mt-2 mb-4">Why "Willpower" Fails</h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
-                    Digital boundaries today depend on self-discipline in environments designed to weaken it. Here is the data proving why traditional "Red Ocean" screentime apps are destined to fail.
-                </p>
-            </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
+            <span class="text-sky-600 font-bold tracking-widest uppercase text-sm">The Science of Failure</span>
+            <h2 class="text-4xl font-bold text-slate-900 mt-2 mb-4">Why "Willpower" Fails</h2>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                Digital boundaries today depend on self-discipline in environments designed to weaken it.
+            </p>
         </div>
 
         <div class="relative w-full max-w-7xl mx-auto group">
-            <button id="scrollLeftBtn" class="absolute left-0 md:left-4 top-[45%] -translate-y-1/2 z-20 bg-white shadow-xl border border-slate-200 rounded-full w-12 h-12 text-xl font-bold text-sky-600 hover:bg-sky-50 hover:scale-110 transition-all flex items-center justify-center cursor-pointer">
-                &#10094;
-            </button>
+            <button id="scrollLeftBtn" class="absolute left-0 md:left-4 top-[45%] -translate-y-1/2 z-20 bg-white shadow-xl border border-slate-200 rounded-full w-12 h-12 text-xl font-bold text-sky-600 hover:bg-sky-50 transition-all flex items-center justify-center cursor-pointer">&#10094;</button>
 
             <div id="researchScroll" class="flex overflow-x-auto snap-x snap-mandatory hide-scroll-bar scroll-smooth w-full">
-                
-                <!-- Slide 1 -->
                 <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
                     <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-2xl font-bold text-slate-900">1. Ego Depletion Theory</h3>
-                        </div>
-                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
-                            Willpower is a finite cognitive resource. As users make decisions throughout the day (Decision Fatigue), their capacity for self-regulation drops drastically by nighttime, directly correlating with a spike in doomscrolling.
-                        </p>
-                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
-                            <canvas id="egoChart"></canvas>
-                        </div>
-                        <div class="text-sm font-semibold text-slate-400 text-center">
-                            Citation: Baumeister, R. F., et al. (1998). Ego depletion: Is the active self a limited resource?
-                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Ego Depletion Theory</h3>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4"><canvas id="egoChart"></canvas></div>
+                        <p class="text-center text-xs text-slate-400">Fig 1. Willpower degrades as the day progresses, while doomscrolling spikes.</p>
                     </div>
                 </div>
-
-                <!-- Slide 2 -->
                 <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
                     <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-2xl font-bold text-slate-900">2. Neurological Vulnerability</h3>
-                        </div>
-                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
-                            Adolescents demonstrate underdeveloped impulse control due to ongoing <strong>prefrontal cortex development</strong>. This makes them highly susceptible to screen-time algorithms engineered for maximum dopamine release.
-                        </p>
-                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
-                            <canvas id="neuroChart"></canvas>
-                        </div>
-                        <div class="text-sm font-semibold text-slate-400 text-center">
-                            Source: National Institutes of Health (NIH) - Adolescent Brain Cognitive Development Study.
-                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Neurological Vulnerability</h3>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4"><canvas id="neuroChart"></canvas></div>
+                        <p class="text-center text-xs text-slate-400">Fig 2. The mismatch between impulse control (PFC) and algorithmic engagement.</p>
                     </div>
                 </div>
-
-                <!-- Slide 3 -->
                 <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
                     <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-2xl font-bold text-slate-900">3. The Biological Toll</h3>
-                        </div>
-                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
-                            Excessive nighttime screen use suppresses melatonin production due to blue light exposure. This directly degrades sleep quality, which strongly correlates with increased anxiety and reduced academic performance.
-                        </p>
-                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
-                            <canvas id="bioChart"></canvas>
-                        </div>
-                        <div class="text-sm font-semibold text-slate-400 text-center">
-                            Source: Sleep Research Society - Impact of Light-Emitting Devices on Sleep.
-                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">The Biological Toll</h3>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4"><canvas id="bioChart"></canvas></div>
+                        <p class="text-center text-xs text-slate-400">Fig 3. Blue light impact on melatonin production and REM sleep quality.</p>
                     </div>
                 </div>
-
-                <!-- Slide 4 -->
                 <div class="w-full flex-shrink-0 snap-center px-4 md:px-20 py-6 flex justify-center">
                     <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-10 flex flex-col">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-2xl font-bold text-slate-900">4. The Fogg Behavior Model</h3>
-                        </div>
-                        <p class="text-base text-slate-600 mb-6 h-auto md:h-16">
-                            Behavior occurs when Motivation, Ability, and a Prompt converge (B=MAP). "Red Ocean" apps leave the "Ability" to scroll high via easy overrides. Focality alters the environment to completely remove "Ability" in focus zones.
-                        </p>
-                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4">
-                            <canvas id="foggChart"></canvas>
-                        </div>
-                        <div class="text-sm font-semibold text-slate-400 text-center">
-                            Citation: Fogg, B. J. (2009). A behavior model for persuasive design.
-                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">The Fogg Behavior Model</h3>
+                        <div class="chart-container-large flex-grow border border-slate-100 rounded-xl bg-slate-50 mb-4"><canvas id="foggChart"></canvas></div>
+                        <p class="text-center text-xs text-slate-400">Fig 4. Behavior happens when Motivation, Ability, and Prompt converge.</p>
                     </div>
                 </div>
             </div>
             
-            <button id="scrollRightBtn" class="absolute right-0 md:right-4 top-[45%] -translate-y-1/2 z-20 bg-white shadow-xl border border-slate-200 rounded-full w-12 h-12 text-xl font-bold text-sky-600 hover:bg-sky-50 hover:scale-110 transition-all flex items-center justify-center cursor-pointer">
-                &#10095;
-            </button>
+            <button id="scrollRightBtn" class="absolute right-0 md:right-4 top-[45%] -translate-y-1/2 z-20 bg-white shadow-xl border border-slate-200 rounded-full w-12 h-12 text-xl font-bold text-sky-600 hover:bg-sky-50 transition-all flex items-center justify-center cursor-pointer">&#10095;</button>
         </div>
-
         <div class="max-w-md mx-auto mt-2 px-4 mb-6">
             <div class="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
                 <div id="scrollProgressBar" class="h-full bg-sky-500 transition-all duration-300 ease-out" style="width: 25%;"></div>
@@ -258,68 +207,56 @@
         </div>
     </section>
 
-    <!-- Section 2: The Solution Reveal (Interactive Demo) -->
+    <!-- Demo Section -->
     <section id="demo" class="py-24 bg-slate-900 text-white relative overflow-hidden">
         <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-sky-900/20 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center mb-16">
+            <span class="text-sky-400 font-bold tracking-widest uppercase text-sm">The Experience</span>
+            <h2 class="text-4xl font-bold mt-2 mb-4">Context-Aware Focus</h2>
+            <p class="text-slate-400 max-w-3xl mx-auto">Experience how Focality automatically enforces boundaries just by entering a room.</p>
+        </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16">
-                <span class="text-sky-400 font-bold tracking-widest uppercase text-sm">The Solution Revealed</span>
-                <h2 class="text-4xl font-bold mt-2 mb-4">Interactive Focality Prototype</h2>
-                <p class="text-slate-400 max-w-3xl mx-auto">
-                    Stop fighting human nature. Move the slider to experience how Focality automatically enforces boundaries just by entering a room.
-                </p>
-            </div>
-
-            <div class="bg-slate-800 rounded-3xl border border-slate-700 shadow-[0_0_50px_rgba(2,132,199,0.15)] overflow-hidden max-w-5xl mx-auto">
-                <div class="grid md:grid-cols-2">
-                    <div class="p-8 md:p-12 flex flex-col justify-center">
-                        <h3 class="text-2xl font-bold mb-2">Test RSSI Trigger 🕹️</h3>
-                        <p class="text-slate-400 text-sm mb-8">
-                            As the phone physically approaches the hardware beacon (on a nightstand), signal strength increases, triggering the localized environmental block.
-                        </p>
-
-                        <div class="space-y-8">
-                            <div>
-                                <div class="flex justify-between text-xs uppercase tracking-wider font-bold text-sky-400 mb-2">
-                                    <span>Living Room</span>
-                                    <span>Approaching</span>
-                                    <span>At Nightstand</span>
-                                </div>
-                                <input type="range" min="0" max="100" value="0" id="proximitySlider" class="accent-sky-500">
+        <div class="bg-slate-800 rounded-3xl border border-slate-700 shadow-2xl overflow-hidden max-w-5xl mx-auto relative z-10">
+            <div class="grid md:grid-cols-2">
+                <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-2">Zone Simulator 🕹️</h3>
+                    <p class="text-slate-400 text-sm mb-8">Move the phone toward the hardware beacon to see the environmental block trigger.</p>
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between text-xs uppercase tracking-wider font-bold text-sky-400 mb-2">
+                                <span>Living Room</span>
+                                <span>Approaching</span>
+                                <span>At Nightstand</span>
                             </div>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
-                                    <div class="text-xs text-slate-500 uppercase">Signal (RSSI)</div>
-                                    <div id="rssiValue" class="text-2xl font-mono text-sky-400 font-bold">-95 dBm</div>
-                                </div>
-                                <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
-                                    <div class="text-xs text-slate-500 uppercase">App Status</div>
-                                    <div id="statusValue" class="text-xl font-bold text-emerald-400">UNRESTRICTED</div>
-                                </div>
+                            <input type="range" min="0" max="100" value="0" id="proximitySlider" class="accent-sky-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700 text-center">
+                                <div class="text-xs text-slate-500 uppercase">RSSI Signal</div>
+                                <div id="rssiValue" class="text-2xl font-mono text-sky-400 font-bold">-95 dBm</div>
+                            </div>
+                            <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700 text-center">
+                                <div class="text-xs text-slate-500 uppercase">Status</div>
+                                <div id="statusValue" class="text-xl font-bold text-emerald-400 uppercase">Unrestricted</div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="bg-slate-950 relative h-80 md:h-auto flex items-center justify-center overflow-hidden" id="simContainer">
-                        <div class="absolute right-12 w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(2,132,199,0.5)] z-20">
-                            <span class="text-2xl">📡</span>
-                        </div>
-                        <div id="wave1" class="absolute right-12 w-12 h-12 rounded-full border border-sky-500/30 transition-all duration-300"></div>
-                        <div id="wave2" class="absolute right-12 w-12 h-12 rounded-full border border-sky-500/20 transition-all duration-300"></div>
-                        <div id="phoneObject" class="absolute left-12 w-16 h-28 bg-white rounded-xl shadow-lg flex flex-col items-center justify-center transition-all duration-300 z-30 border-4 border-slate-300">
-                            <div class="w-12 h-20 bg-slate-100 rounded overflow-hidden relative">
-                                <div id="screenContent" class="p-1 grid grid-cols-2 gap-1 content-start transition-opacity duration-300">
-                                    <div class="w-full aspect-square bg-rose-400 rounded-sm"></div>
-                                    <div class="w-full aspect-square bg-blue-400 rounded-sm"></div>
-                                    <div class="w-full aspect-square bg-emerald-400 rounded-sm"></div>
-                                    <div class="w-full aspect-square bg-amber-400 rounded-sm"></div>
-                                </div>
-                                <div id="lockOverlay" class="absolute inset-0 bg-slate-900/90 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-1 text-center">
-                                    <span class="text-2xl mb-0.5">🔒</span>
-                                    <span class="text-[7px] text-white font-bold leading-tight uppercase">Focality<br>Activated</span>
-                                </div>
+                </div>
+                <div class="bg-slate-950 relative h-80 md:h-auto flex items-center justify-center overflow-hidden" id="simContainer">
+                    <div class="absolute right-12 w-12 h-12 bg-sky-600 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(2,132,199,0.5)] z-20"><span class="text-2xl">📡</span></div>
+                    <div id="wave1" class="absolute right-12 w-12 h-12 rounded-full border border-sky-500/30 transition-all duration-300"></div>
+                    <div id="wave2" class="absolute right-12 w-12 h-12 rounded-full border border-sky-500/20 transition-all duration-300"></div>
+                    <div id="phoneObject" class="absolute left-12 w-16 h-28 bg-white rounded-xl shadow-lg transition-all duration-300 z-30 border-4 border-slate-300">
+                        <div class="w-12 h-20 bg-slate-100 mt-2 mx-auto rounded overflow-hidden relative">
+                            <div id="screenContent" class="p-1 grid grid-cols-2 gap-1 content-start transition-opacity duration-300">
+                                <div class="w-full aspect-square bg-rose-400 rounded-sm"></div>
+                                <div class="w-full aspect-square bg-blue-400 rounded-sm"></div>
+                                <div class="w-full aspect-square bg-emerald-400 rounded-sm"></div>
+                                <div class="w-full aspect-square bg-amber-400 rounded-sm"></div>
+                            </div>
+                            <div id="lockOverlay" class="absolute inset-0 bg-slate-900/95 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-1 text-center">
+                                <span class="text-xl mb-1">🔒</span>
+                                <span class="text-[7px] text-white font-bold leading-tight uppercase">Focality<br>Activated</span>
                             </div>
                         </div>
                     </div>
@@ -484,7 +421,7 @@
                         <p class="text-sm text-slate-500 leading-relaxed">
                             <strong>Suppliers:</strong> Direct procurement from Nordic Semiconductor (nRF52 chips) and Murata (Antennas) ensures maximum hardware margin control.<br><br>
                             <strong>B2B Partners:</strong> Targeting top-tier University library systems, enterprise HR wellness programs, and co-working spaces (e.g., WeWork) for pilot deployments.<br><br>
-                            <strong>Target Investors:</strong> PropTech, EdTech, and Digital Health VC funds seeking hardware-enabled SaaS solutions for a Series A rollout.
+                            <strong>Target Investors:</strong> PropTech, EdTech, and Digital Health VC funds seeking hardware-enabled SaaS solutions.
                         </p>
                     </div>
                     
@@ -541,7 +478,7 @@
             </div>
         </div>
 
-        <!-- THREE TIERS OF NON-CONSUMERS (RESTORED) -->
+        <!-- THREE TIERS OF NON-CONSUMERS -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
                 <h3 class="text-2xl font-bold text-slate-800 mb-8 text-center">Unlocking Non-Consumers</h3>
@@ -1012,6 +949,3 @@
     </script>
 </body>
 </html>
-
-
-
