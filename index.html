@@ -596,7 +596,7 @@
         function init3DModel() {
             const container = document.getElementById('hardware3dContainer');
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xf8fafc); // Matches bg-slate-50
+            scene.background = new THREE.Color(0xf8fafc); 
 
             camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
             camera.position.set(0, 6, 12);
@@ -628,6 +628,30 @@
             const topGeo = new THREE.CylinderGeometry(3, 3, 0.4, 64);
             topShell = new THREE.Mesh(topGeo, whiteMat);
             topShell.position.y = 0.5;
+            
+            // --- ADD FOCALITY TEXT TO TOP SHELL ---
+            const logoCanvas = document.createElement('canvas');
+            logoCanvas.width = 512;
+            logoCanvas.height = 512;
+            const ctx = logoCanvas.getContext('2d');
+            ctx.fillStyle = 'rgba(255, 255, 255, 0)';
+            ctx.fillRect(0, 0, 512, 512);
+            ctx.fillStyle = '#0f172a'; // Dark slate text
+            ctx.font = 'bold 70px "Space Grotesk", "Arial", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.letterSpacing = '5px';
+            ctx.fillText('FOCALITY', 256, 256);
+            
+            const logoTexture = new THREE.CanvasTexture(logoCanvas);
+            const logoGeo = new THREE.CircleGeometry(2.5, 64);
+            const logoMat = new THREE.MeshBasicMaterial({ map: logoTexture, transparent: true });
+            const logoMesh = new THREE.Mesh(logoGeo, logoMat);
+            logoMesh.position.y = 0.201; // Slightly above the top shell to prevent clipping
+            logoMesh.rotation.x = -Math.PI / 2;
+            topShell.add(logoMesh);
+            // --------------------------------------
+
             hardwareGroup.add(topShell);
 
             // LED Ring
@@ -648,25 +672,25 @@
             const pcb = new THREE.Mesh(pcbGeo, pcbMat);
             internals.add(pcb);
 
-            // Battery (Part 2)
-            const battGeo = new THREE.CylinderGeometry(1.2, 1.2, 0.2, 32);
-            const battMat = new THREE.MeshPhongMaterial({ color: 0xaaaaaa, shininess: 150 });
+            // 10,000mAh Battery (Part 2) - Upgraded to large Li-Po block
+            const battGeo = new THREE.BoxGeometry(1.8, 0.35, 2.4);
+            const battMat = new THREE.MeshPhongMaterial({ color: 0x2563eb, shininess: 80 }); // Blue Li-Po style wrapper
             internalParts.battery = new THREE.Mesh(battGeo, battMat);
-            internalParts.battery.position.set(-0.5, 0.2, 0);
+            internalParts.battery.position.set(-0.5, 0.25, 0);
             internals.add(internalParts.battery);
 
             // BLE Chip (Part 1)
             const chipGeo = new THREE.BoxGeometry(0.8, 0.15, 0.8);
             const chipMat = new THREE.MeshPhongMaterial({ color: 0x222222 });
             internalParts.chip = new THREE.Mesh(chipGeo, chipMat);
-            internalParts.chip.position.set(0.8, 0.15, 0.4);
+            internalParts.chip.position.set(1.2, 0.15, 0.5);
             internals.add(internalParts.chip);
 
             // Antenna (Part 3)
             const antGeo = new THREE.BoxGeometry(0.2, 0.25, 1.2);
             const antMat = new THREE.MeshPhongMaterial({ color: 0xc9a227 });
             internalParts.antenna = new THREE.Mesh(antGeo, antMat);
-            internalParts.antenna.position.set(1.4, 0.2, -0.6);
+            internalParts.antenna.position.set(1.5, 0.2, -0.6);
             internals.add(internalParts.antenna);
 
             scene.add(hardwareGroup);
@@ -691,6 +715,7 @@
                 topShell.position.y = 0.5 + (val * 5);
                 topShell.material.opacity = 1 - (val * 0.6);
                 topShell.material.transparent = true;
+                logoMesh.material.opacity = 1 - (val * 0.6);
             };
 
             // 3D Raycaster (Clicking internal parts)
@@ -698,7 +723,7 @@
             const mouse = new THREE.Vector2();
             
             container.addEventListener('click', (event) => {
-                if (Math.abs(event.clientX - previousMouseX) > 5) return; // Prevent click if dragging
+                if (Math.abs(event.clientX - previousMouseX) > 5) return; 
                 
                 const rect = renderer.domElement.getBoundingClientRect();
                 mouse.x = ( (event.clientX - rect.left) / rect.width ) * 2 - 1;
@@ -728,7 +753,7 @@
         window.highlightComponent = (key) => {
             const part = internalParts[key];
             if (part) {
-                part.scale.set(1.4, 1.4, 1.4);
+                part.scale.set(1.15, 1.15, 1.15);
                 if (part.material.emissive) {
                     part.material.emissive.setHex(0x38bdf8);
                 }
@@ -908,7 +933,7 @@
         const techDetails = {
             'battery': { 
                 title: 'Battery Efficiency 🔋', 
-                text: '<p><strong>Technical Backing:</strong> Unlike classic Bluetooth or Wi-Fi, BLE protocols transmit very small packets of data (advertising intervals) while remaining in "sleep mode" 99% of the time. This drastically reduces power consumption to mere microamps, allowing Focality to last 1-2 years on a single coin-cell battery.</p>' 
+                text: '<p><strong>Technical Backing:</strong> Unlike classic Bluetooth or Wi-Fi, BLE protocols transmit very small packets of data (advertising intervals) while remaining in "sleep mode" 99% of the time. Paired with a massive 10,000mAh rechargeable Lithium battery via USB-C, Focality lasts 18-24 months on a single charge.</p>' 
             },
             'precision': { 
                 title: 'RSSI Precision 📏', 
@@ -949,9 +974,9 @@
                 text: '<strong>Feasibility Validation:</strong> Real-world BLE microprocessors like the Nordic nRF52 series are exceptionally small (approx. 6x6mm) and power-efficient. They cost under $1.50 at wholesale, making our high margins possible.' 
             },
             'battery': { 
-                title: 'CR2032 Lithium Cell', 
-                src: 'https://images.unsplash.com/photo-1584905066893-7d5c142ba4e1?auto=format&fit=crop&w=800&q=80', 
-                text: '<strong>Hardware Endurance:</strong> A standard CR2032 3V Lithium coin battery provides 225mAh. Because the BLE chip stays in microamp sleep mode between 10Hz pulses, it lasts 18-24 months without a recharge.' 
+                title: 'High-Capacity Lithium Cell (USB-C)', 
+                src: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=800&q=80', 
+                text: '<strong>Hardware Endurance:</strong> A massive 10,000mAh Lithium-Ion battery pack, integrated with a USB-C charging port. Because the BLE chip stays in microamp sleep mode between 10Hz pulses, it lasts 18-24 months without a recharge.' 
             },
             'antenna': { 
                 title: 'Ceramic Patch Antenna', 
@@ -986,7 +1011,7 @@
         };
     </script>
 </body>
-
 </html>
+
 
 
